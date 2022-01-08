@@ -5,6 +5,10 @@ import { getTodoList } from "../../lib/api"
 import { AxiosError, AxiosResponse } from "axios"
 
 const TodoList = () => {
+  const [todoList, setTodolist] = useState({})
+
+  useEffect(() => {}, [])
+
   return (
     <div className="todo-list-container">
       <Box sx={{ width: 300, height: 200, border: "1px solid gray" }}>
