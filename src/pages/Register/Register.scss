@@ -4,4 +4,52 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  margin: auto;
+
+  width: 600px;
+
+  .title-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 46px;
+    color: #000000;
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    border-bottom: 1px solid #b4b4b4;
+    .title {
+      text-align: center;
+      width: 200px;
+      border-bottom: 3px solid #000000;
+    }
+  }
+  .input-form {
+    width: 100%;
+    margin-top: 70px;
+    .form {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      .label {
+        width: 134px;
+        font-size: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+  .button-wrapper {
+    margin-top: 60px;
+    width: 100%;
+  }
+
+  .register-routing-button {
+    margin-top: 23px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 18px;
+    color: #434343;
+    cursor: pointer;
+  }
 }
