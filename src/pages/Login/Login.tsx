@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { InputHTMLAttributes, useState } from 'react'
 import Button from '../../components/Share/Button/Button'
 import Input from '../../components/Share/Input/Input'
 import MainTitle from '../../components/Share/MainTitle/MainTitle'
 import './Login.scss'
 import { useNavigate } from 'react-router-dom'
+import { useLoginDispatchContext } from '../../contexts/login'
 
 const Login = () => {
+  const dispatch = useLoginDispatchContext()
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
@@ -15,7 +17,10 @@ const Login = () => {
 
   const changeShowPassword = () => {
     setShowPassword((prev) => !prev)
-    console.log(showPassword)
+  }
+
+  const handleInputId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'HANDLE_ID', id: e.target.value })
   }
 
   return (
@@ -26,7 +31,7 @@ const Login = () => {
       </div>
       <div className="input-form">
         <div className="id">ID</div>
-        <Input type="text" />
+        <Input type="text" onChange={handleInputId} />
         <div className="password">PW</div>
         <Input
           type="password"
