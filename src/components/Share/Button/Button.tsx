@@ -3,7 +3,7 @@ import './Button.scss'
 
 interface ButtonProps {
   text: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onClick?: () => void
 }
 
 const Button = (props: ButtonProps) => {

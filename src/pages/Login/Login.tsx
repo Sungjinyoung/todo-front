@@ -24,7 +24,7 @@ const Login = () => {
   }
 
   return (
-    <div className="login-page-container">
+    <div className="login-page">
       <MainTitle />
       <div className="title-wrapper">
         <div className="title">로그인</div>

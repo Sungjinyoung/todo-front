@@ -20,13 +20,13 @@ const LoginDispatchContext = createContext<LoginDispatch | null>(null)
 
 export const useLoginStateContext = (): LoginForm => {
   const state = useContext(LoginStateContext)
-  if (!state) throw new Error('unknown type')
+  if (!state) throw new Error('not wrapped with provider')
   return state
 }
 
 export const useLoginDispatchContext = (): LoginDispatch => {
   const dispatch = useContext(LoginDispatchContext)
-  if (!dispatch) throw new Error()
+  if (!dispatch) throw new Error('not wrapped with provider')
   return dispatch
 }
 

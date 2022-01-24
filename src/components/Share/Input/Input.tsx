@@ -13,6 +13,7 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   showPassword?: boolean
   changeShowPassword?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  error?: boolean
   style?: SxProps
 }
 
@@ -22,6 +23,7 @@ const Input = (props: InputProps) => {
     onChange,
     showPassword = true,
     changeShowPassword,
+    error,
     style,
   } = props
   return (
@@ -31,6 +33,7 @@ const Input = (props: InputProps) => {
         className="input"
         type={showPassword ? 'text' : 'password'}
         onChange={onChange}
+        error={error}
         endAdornment={
           type === 'password' && (
             <InputAdornment position="end">

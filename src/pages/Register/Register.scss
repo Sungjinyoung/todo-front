@@ -1,4 +1,4 @@
-.register-page-container {
+.register-page {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -25,13 +25,21 @@
       border-bottom: 3px solid #000000;
     }
   }
-  .input-form {
+  .register-form {
     width: 100%;
     margin-top: 70px;
     .form {
       display: flex;
       align-items: center;
       margin-bottom: 30px;
+      box-sizing: border-box;
+      .error {
+        margin-top: 90px;
+        position: absolute;
+        color: #ff8080;
+        font-size: 14px;
+        margin-left: 134px;
+      }
       .label {
         width: 134px;
         font-size: 20px;
