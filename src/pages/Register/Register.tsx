@@ -1,4 +1,5 @@
 import { SxProps } from '@mui/material'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import Button from '../../components/Share/Button/Button'
@@ -8,18 +9,20 @@ import {
   useRegissterDispatchContext,
   useRegisterStateContext,
 } from '../../contexts/register'
+import { registerUser } from '../../lib/api'
 import './Register.scss'
 
+type RegisterError = Error | AxiosError
+
 const RegisterInputStyle: SxProps = {
-  height: 60,
   padding: '26px 22px',
 }
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
+  const registerInfo = useRegisterStateContext()
   const dispatch = useRegissterDispatchContext()
-  const { name, birth, id, password } = useRegisterStateContext()
 
   const changeShowPassword = () => {
     setShowPassword((prev) => !prev)
@@ -40,14 +43,19 @@ const Register = () => {
 
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'HANDLE_PASSWORD', password: e.target.value })
-    console.log(password)
   }
 
-  const register = () => {
-    if (password.length < 8) {
+  const register = async () => {
+    if (registerInfo.password.length < 8) {
       setPasswordError(true)
+      return
     } else {
       setPasswordError(false)
+      try {
+        const response: AxiosResponse = await registerUser(registerInfo)
+      } catch (err) {
+        if (axios.isAxiosError(err)) window.alert(err.response?.data.detail)
+      }
     }
   }
 
