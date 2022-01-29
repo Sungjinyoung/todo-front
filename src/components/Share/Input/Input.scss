@@ -11,3 +11,12 @@
   position: absolute;
   right: 0;
 }
+
+@media screen and (max-width: 600px) {
+  .input {
+    height: 30px;
+  }
+  .MuiOutlinedInput-input {
+    height: 30px;
+  }
+}

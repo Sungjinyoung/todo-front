@@ -3,9 +3,9 @@
   font-size: 18px;
   font-weight: 500;
   font-size: 48px;
-  height: 75px;
   background: #ffffff;
   align-items: center;
+  justify-content: center;
   color: #1d78e5;
   .icon {
     background-color: #1d78e5;
@@ -14,5 +14,15 @@
     width: 75px;
     height: 75px;
     margin-right: 35px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-title {
+    font-size: 20px;
+    .icon {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
