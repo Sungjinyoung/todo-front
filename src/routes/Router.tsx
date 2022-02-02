@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
 import LoginContextProvider from '../contexts/login'
 import RegisterContextProvider from '../contexts/register'
-import Login from '../pages/Login/Login'
-import Register from '../pages/Register/Register'
+import LoginPage from '../pages/LoginPage/LoginPage'
+import MainPage from '../pages/MainPage/MainPage'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
 
 const Router = () => {
   return (
@@ -13,8 +14,9 @@ const Router = () => {
         <LoginContextProvider>
           <RegisterContextProvider>
             <Routes>
-              <Route path="/" element={<Login />}></Route>
-              <Route path="/register" element={<Register />}></Route>
+              <Route path="/" element={<LoginPage />}></Route>
+              <Route path="/register" element={<RegisterPage />}></Route>
+              <Route path="/main" element={<MainPage />}></Route>
             </Routes>
           </RegisterContextProvider>
         </LoginContextProvider>

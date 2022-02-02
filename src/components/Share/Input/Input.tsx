@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  SxProps,
-} from '@mui/material'
+import { IconButton, InputAdornment, OutlinedInput } from '@mui/material'
 import './Input.scss'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
@@ -14,26 +9,21 @@ interface InputProps {
   showPassword?: boolean
   changeShowPassword?: (e: React.MouseEvent<HTMLButtonElement>) => void
   error?: boolean
-  style?: SxProps
+  value?: string | number
+  placeholder?: string
 }
 
 const Input = (props: InputProps) => {
-  const {
-    type,
-    onChange,
-    showPassword = true,
-    changeShowPassword,
-    error,
-    style,
-  } = props
+  const { type, onChange, showPassword = true, changeShowPassword, error, value, placeholder } = props
   return (
     <>
       <OutlinedInput
-        sx={style}
         className="input"
         type={showPassword ? 'text' : 'password'}
         onChange={onChange}
         error={error}
+        value={value}
+        placeholder={placeholder}
         endAdornment={
           type === 'password' && (
             <InputAdornment position="end">

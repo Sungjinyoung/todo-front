@@ -15,6 +15,10 @@
 @media screen and (max-width: 600px) {
   .input {
     height: 30px;
+    > input {
+      font-size: 10px;
+      border-width: 0px;
+    }
   }
   .MuiOutlinedInput-input {
     height: 30px;

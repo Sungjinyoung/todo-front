@@ -32,8 +32,6 @@ interface registerDto {
   birth: string
 }
 
-console.log(API_URL)
-
 const todoAPI: AxiosInstance = axios.create({
   baseURL: API_URL,
 })
