@@ -26,7 +26,7 @@ const RegisterPage = () => {
   const navigate = useNavigate()
 
   const changeShowPassword = () => {
-    setShowPassword(!showPassword)
+    setShowPassword((prev) => !prev)
   }
 
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +66,8 @@ const RegisterPage = () => {
       })
       if (response.data.success) {
         alert('회원가입이 완료되었습니다.')
+        navigate('/', { replace: true })
       }
-      navigate('/', { replace: true })
     } catch (err) {
       if (axios.isAxiosError(err)) window.alert(err.response?.data.detail)
     }

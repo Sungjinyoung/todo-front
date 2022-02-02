@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer } from 'react'
 interface LoginForm {
   id: string
   password: string
+  userId: string
 }
 
 type LoginDispatch = React.Dispatch<Action>
@@ -10,6 +11,7 @@ type LoginDispatch = React.Dispatch<Action>
 type Action =
   | { type: 'HANDLE_ID'; id: string }
   | { type: 'HANDLE_PASSWORD'; password: string }
+  | { type: 'SET_USER_ID'; userId: string }
 
 interface LoginContextProviderProps {
   children: React.ReactNode
@@ -38,6 +40,9 @@ const reducer = (state: LoginForm, action: Action): LoginForm => {
     case 'HANDLE_PASSWORD': {
       return { ...state, password: action.password }
     }
+    case 'SET_USER_ID': {
+      return { ...state, userId: action.userId }
+    }
     default:
       throw new Error('Unknown Action Type')
   }
@@ -48,13 +53,12 @@ const LoginContextProvider = (props: LoginContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, {
     id: '',
     password: '',
+    userId: '',
   })
 
   return (
     <LoginStateContext.Provider value={state}>
-      <LoginDispatchContext.Provider value={dispatch}>
-        {children}
-      </LoginDispatchContext.Provider>
+      <LoginDispatchContext.Provider value={dispatch}>{children}</LoginDispatchContext.Provider>
     </LoginStateContext.Provider>
   )
 }

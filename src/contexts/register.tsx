@@ -87,10 +87,18 @@ const registerReducer = (state: RegisterForm, action: RegisterInputAction): Regi
       }
     }
     case 'SET_ID_ERROR': {
-      return { ...state, idErrorMessage: action.message, idInvalid: action.error }
+      return {
+        ...state,
+        idErrorMessage: action.message,
+        idInvalid: action.error,
+      }
     }
     case 'SET_CELLPHONE_ERROR': {
-      return { ...state, cellphoneErrorMessage: action.message, cellphoneInvalid: action.error }
+      return {
+        ...state,
+        cellphoneErrorMessage: action.message,
+        cellphoneInvalid: action.error,
+      }
     }
     default:
       throw new Error('unknown Type')
@@ -135,37 +143,54 @@ const RegisterContextProvider = (props: RegisterContextProps) => {
   }, [registerInfo.name])
 
   useEffect(() => {
-    if (registerInfo.id.length < 7 && registerInfo.id.length > 0)
-      dispatchRegisterInfo({
-        type: 'SET_ID_ERROR',
-        error: true,
-        message: '※ 아이디는 7자 이상으로 설정해주세요.',
-      })
-    else if (registerInfo.id.length === 0)
+    if (registerInfo.id.length === 0)
       dispatchRegisterInfo({
         type: 'SET_ID_ERROR',
         error: true,
         message: '※ 아이디를 입력해주세요.',
       })
+    else if (registerInfo.id.length < 7)
+      dispatchRegisterInfo({
+        type: 'SET_ID_ERROR',
+        error: true,
+        message: '※ 아이디는 7자 이상으로 설정해주세요.',
+      })
     else dispatchRegisterInfo({ type: 'SET_ID_ERROR', error: false, message: '' })
   }, [registerInfo.id])
 
   useEffect(() => {
-    if (registerInfo.password.length < 8)
+    if (registerInfo.password.length === 0)
+      dispatchRegisterInfo({
+        type: 'SET_PASSWORD_ERROR',
+        error: true,
+        message: '※ 비밀번호를 입력해주세요.',
+      })
+    else if (registerInfo.password.length < 8)
       dispatchRegisterInfo({
         type: 'SET_PASSWORD_ERROR',
         error: true,
         message: '※ 비밀번호는 8자 이상으로 설정해주세요.',
       })
-    else dispatchRegisterInfo({ type: 'SET_PASSWORD_ERROR', error: false, message: '' })
+    else
+      dispatchRegisterInfo({
+        type: 'SET_PASSWORD_ERROR',
+        error: false,
+        message: '',
+      })
   }, [registerInfo.password])
 
   useEffect(() => {
-    if (registerInfo.cellphone.length < 13 || !registerInfo.cellphone.startsWith('010'))
+    if (registerInfo.cellphoneErrorMessage.length === 0)
       dispatchRegisterInfo({
         type: 'SET_CELLPHONE_ERROR',
         error: true,
-        message: '전화번호를 확인해주세요.',
+        message: '※ 전화번호를 입력해주세요.',
+      })
+    else if (registerInfo.cellphone.length < 13 || !registerInfo.cellphone.startsWith('010'))
+      dispatchRegisterInfo({
+        type: 'SET_CELLPHONE_ERROR',
+        error: true,
+        message: '※ 전화번호를 확인해주세요.',
       })
     else
       dispatchRegisterInfo({
@@ -173,7 +198,7 @@ const RegisterContextProvider = (props: RegisterContextProps) => {
         error: false,
         message: '',
       })
-  }, [])
+  }, [registerInfo.cellphone])
 
   return (
     <RegisterStateContext.Provider value={registerInfo}>

@@ -4,10 +4,7 @@ import Input from '../../components/Share/Input/Input'
 import MainTitle from '../../components/Share/MainTitle/MainTitle'
 import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
-import {
-  useLoginDispatchContext,
-  useLoginStateContext,
-} from '../../contexts/login'
+import { useLoginDispatchContext, useLoginStateContext } from '../../contexts/login'
 import { loginUser } from '../../lib/api'
 import axios, { AxiosResponse } from 'axios'
 
@@ -35,9 +32,12 @@ const Login = () => {
         id: loginInfo.id,
         password: loginInfo.password,
       })
+      if (response.data.success) {
+        dispatch({ type: 'SET_USER_ID', userId: response.data.userId })
+        navigate('/main', { replace: true })
+      }
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response)
-        alert(err.response?.data.detail)
+      if (axios.isAxiosError(err) && err.response) alert(err.response?.data.detail)
     }
   }
 
@@ -51,11 +51,7 @@ const Login = () => {
         <div className="id">ID</div>
         <Input type="text" onChange={handleInputId} />
         <div className="password">PW</div>
-        <Input
-          type="password"
-          showPassword={showPassword}
-          changeShowPassword={changeShowPassword}
-        />
+        <Input type="password" showPassword={showPassword} changeShowPassword={changeShowPassword} />
       </div>
       <div className="button-wrapper">
         <Button onClick={login} text="로그인" />

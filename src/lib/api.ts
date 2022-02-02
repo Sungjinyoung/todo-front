@@ -37,7 +37,9 @@ const todoAPI: AxiosInstance = axios.create({
 })
 
 const getTodoList = () => {
-  return todoAPI.get('/todo/all')
+  return todoAPI.get('/todo/all', {
+    // params --> get의 req.query가 되는 것
+  })
 }
 
 const getTodoItem = (id: number) => {
