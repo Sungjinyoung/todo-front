@@ -1,13 +1,19 @@
-import React, { InputHTMLAttributes, useState } from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/Share/Button/Button'
 import Input from '../../components/Share/Input/Input'
 import MainTitle from '../../components/Share/MainTitle/MainTitle'
-import './Login.scss'
+import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
-import { useLoginDispatchContext } from '../../contexts/login'
+import {
+  useLoginDispatchContext,
+  useLoginStateContext,
+} from '../../contexts/login'
+import { loginUser } from '../../lib/api'
+import axios, { AxiosResponse } from 'axios'
 
 const Login = () => {
   const dispatch = useLoginDispatchContext()
+  const loginInfo = useLoginStateContext()
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const navigate = useNavigate()
 
@@ -21,6 +27,18 @@ const Login = () => {
 
   const handleInputId = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'HANDLE_ID', id: e.target.value })
+  }
+
+  const login = async () => {
+    try {
+      const response: AxiosResponse = await loginUser({
+        id: loginInfo.id,
+        password: loginInfo.password,
+      })
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response)
+        alert(err.response?.data.detail)
+    }
   }
 
   return (
@@ -40,7 +58,7 @@ const Login = () => {
         />
       </div>
       <div className="button-wrapper">
-        <Button text="로그인" />
+        <Button onClick={login} text="로그인" />
       </div>
       <div className="register-routing-button" onClick={goRegisterPage}>
         회원가입
